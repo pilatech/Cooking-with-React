@@ -1,25 +1,23 @@
-import logo from './logo.svg';
-import './App.css';
+import { createContext, useState } from 'react'
+import Counter from './Counter'
+import CounterFunc from './CounterFunc'
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+export const AppContext = createContext()
+
+export default function App(){
+
+ const [red, setRed] = useState(false)
+
+ function toggleRed(){
+  setRed(prevRed => !prevRed)
+  console.log(red)
+ }
+
+ return(
+  <AppContext.Provider value={{backgroundColor: red ? 'red' : 'blue'}}>
+   <Counter counter={0}/>
+   <CounterFunc count={0}/>
+   <button onClick={toggleRed}>Toggle Red</button>
+  </AppContext.Provider>
+ )
 }
-
-export default App;
