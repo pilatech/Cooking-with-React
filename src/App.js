@@ -1,23 +1,25 @@
-import { createContext, useState } from 'react'
+import { useState, createContext } from 'react'
 import Counter from './Counter'
-import CounterFunc from './CounterFunc'
+import CounterHook from './CounterHook'
 
-export const AppContext = createContext()
+export const ThemeContext = createContext()
 
 export default function App(){
 
- const [red, setRed] = useState(false)
+ const [theme, setTheme] = useState('green')
 
- function toggleRed(){
-  setRed(prevRed => !prevRed)
-  console.log(red)
+ function toggleTheme(){
+ setTheme(prevTheme => {
+  return prevTheme === "green" ? "purple" : "green"
+ })
+ console.log(theme)
  }
 
- return(
-  <AppContext.Provider value={{backgroundColor: red ? 'red' : 'blue'}}>
-   <Counter counter={0}/>
-   <CounterFunc count={0}/>
-   <button onClick={toggleRed}>Toggle Red</button>
-  </AppContext.Provider>
+ return (
+  <ThemeContext.Provider value={{backgroundColor: theme}}>
+   <Counter initialCounter={1}/>
+   <CounterHook initialCounter={0}/>
+   <button onClick={toggleTheme}>Toggle Theme</button>
+  </ThemeContext.Provider>
  )
 }

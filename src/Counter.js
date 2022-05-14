@@ -1,29 +1,33 @@
 import { Component } from 'react'
-import { AppContext } from './App'
+import { ThemeContext } from './App'
+
 
 export default class Counter extends Component {
 
  constructor(props){
   super(props)
-  this.state = { counter: this.props.counter }
+  this.state = {
+   counter: this.props.initialCounter
+  }
  }
+
  render(){
   return(
-   <AppContext.Consumer>
-     {(styles) => (
+   <ThemeContext>
+    {
+       (style) => (
         <div>
-        <p>Counter Class</p>
-        <button style={styles} onClick={() => this.handleClick(-1)}>-</button>
-        {this.state.counter}
-        <button style={styles} onClick={() => this.handleClick(1)}>+</button>
-      </div>
-     )
-     }
-   </AppContext.Consumer>
+          <p>Class</p>
+          <button style={style} onClick={() => this.handleCounter(-1)}>-</button><span>{this.state.counter}</span><button style={style}  onClick={() => this.handleCounter(1)}>+</button>b
+        </div>
+       )
+    }
+   </ThemeContext>
   )
  }
 
- handleClick(amt){
-  this.setState(prevState => ({ counter: prevState.counter + amt}))
+ handleCounter(amount){
+  this.setState( prev => ({ counter: prev.counter + amount }))
  }
+
 }
